@@ -5,7 +5,7 @@ function addRadioBool(parsedValues){
 	for (var i = 0; i < parsedValues.length ; i++){
 		if (flag){
 			category = parsedValues[i];
-			text = "<div id='div_" + category + " class='div_radio'> <h3> " + category + "</h3>";
+			text = "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
 			flag = 0;
 			continue;
 		}
