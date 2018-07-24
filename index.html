@@ -8,8 +8,6 @@
 <script src="scripts/parsing.js"></script>
 <script>
 //TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
-//TODO: When ROS To JAVA, select the radio buttons
-//TODO: Bug quand on retourne à camera sans création boutons
 function getAllIndexes(arr, val) {
     var indexes = [], i;
     for(i = 0; i < arr.length; i++)
@@ -25,27 +23,29 @@ function rosToJava(){
 }
 
 $(document).ready(function(){
-	$('#mods').change(function(){
-		var selected = jQuery(this).val();
+	//$('#mods').change(function(){
+		//var selected = jQuery(this).val();
 		//TODO: Remove next line eventually
-		if (selected == "Camera"){
+		//if (selected == "Camera"){
+		/*
 			var exist = false;
 			$('input:radio').each(function() {
 				if (jQuery(this).attr('class') == selected){
 					exist = true;
 				};
 			});
-			if (exist){
+			*/
+			//if (exist){
 			//TODO: Remove hardcoded radio, change the name
-				var x = document.querySelectorAll(".radio");
-				for (var i = 0; i < x.length; i++) {
+				//var x = document.querySelectorAll(".radio");
+				//for (var i = 0; i < x.length; i++) {
 					//x[i].show();
-					x[i].style.display = "block";
-				}
-			}else{
+					//x[i].style.display = "block";
+				//}
+			//}else{
 			//TODO: Vérifier si un des radio existe, si oui, juste switch la vue de none à inline
 				$.ajax({
-					url: selected+".java",
+					url: "Camera.java",
 					dataType: "text",
 					success: function (data) {
 							//alert('prep new data');
@@ -55,16 +55,16 @@ $(document).ready(function(){
 					}   	
 				});
 			}
-		}else{
+		//}else{
 		//var allParas = document.getElementsByTagName('input');
-			var x = document.querySelectorAll(".radio");
-			for (var i = 0; i < x.length; i++) {
-				x[i].style.display = "none";
+			//var x = document.querySelectorAll(".radio");
+			//for (var i = 0; i < x.length; i++) {
+				//x[i].style.display = "none";
 				//x[i].hide();
-			}
-		}
-		});
-	$('#mods').trigger("change");
+			//}
+		//}
+		//});
+	//$('#mods').trigger("change");
 });
 </script>
 </head>

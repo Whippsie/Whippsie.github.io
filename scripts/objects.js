@@ -1,5 +1,10 @@
 function addRadioBool(name, category){
-	for (var i = 0; i< name.length ; i++){	
+	var category = "";
+	for (var i = 0; i< name.length ; i++){
+		if (name[i] == "class"){
+			category = name[i+1];
+			break;
+		}
 		var id = "radio_"+name[i];
 		$("#mods").after("<div class='radio' id='"+id+"'>"+name[i]+ "<br>");
 		//$("#"+id).append("<br>");

@@ -63,13 +63,16 @@ function preparedata (data){
 	data = data.replace(/\t/g, ' ');
 	var res = data.split(" ");
 	for (var i = 0; i<res.length;i++){
-		//For now only checks variables
-		if (res[i] == "private"){
+		if (res[i] == "public" && res[i+1] == "class"){
+			name[j] = "class";
+			j++;
+			name[j] = res[i+2];
+			j++; 
+		} else if (res[i] == "private" && res[i+1] == "boolean"){
+			//For now only checks variables
 			//For now only supports boolean type
-			if (res[i+1] == "boolean"){
-				name[j] = res[i+2];
-				j++;
-			}
+			name[j] = res[i+2];
+			j++;
 		}
 	}
 	return name;
@@ -83,6 +86,11 @@ function preparedataDict (data){
 	var res = data.split(" ");
 	for (var i = 0; i<res.length;i++){
 		//For now only checks variables
+		if (res[i] == "public"){
+			if (res[i+1] == "class"){
+				name[i] = res[i+2];
+			}
+		}
 		if (res[i] == "private"){
 			//For now only supports boolean type
 			if (res[i+1] == "boolean"){
