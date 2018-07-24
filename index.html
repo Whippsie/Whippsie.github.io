@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,4 +99,106 @@ $(document).ready(function(){
 	</div>
 </div>
 </body>
+=======
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="scripts/files.js"></script>
+<script src="scripts/objects.js"></script>
+<script src="scripts/parsing.js"></script>
+<script>
+//TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
+function getAllIndexes(arr, val) {
+    var indexes = [], i;
+    for(i = 0; i < arr.length; i++)
+        if (arr[i] === val)
+            indexes.push(i);
+    return indexes;
+}
+function rosToJava(){
+	var args = rosToDict();
+	var javatext = dictToJava(args);
+	var attributes = preparedataDict(javatext);
+	updateUI(attributes);
+}
+
+$(document).ready(function(){
+	//$('#mods').change(function(){
+		//var selected = jQuery(this).val();
+		//TODO: Remove next line eventually
+		//if (selected == "Camera"){
+		/*
+			var exist = false;
+			$('input:radio').each(function() {
+				if (jQuery(this).attr('class') == selected){
+					exist = true;
+				};
+			});
+			*/
+			//if (exist){
+			//TODO: Remove hardcoded radio, change the name
+				//var x = document.querySelectorAll(".radio");
+				//for (var i = 0; i < x.length; i++) {
+					//x[i].show();
+					//x[i].style.display = "block";
+				//}
+			//}else{
+			//TODO: Vérifier si un des radio existe, si oui, juste switch la vue de none à inline
+				$.ajax({
+					url: "Camera.java",
+					dataType: "text",
+					success: function (data) {
+							//alert('prep new data');
+							var name = preparedata(data);
+							addRadioBool(name, selected);
+							
+					}   	
+				});
+			}
+		//}else{
+		//var allParas = document.getElementsByTagName('input');
+			//var x = document.querySelectorAll(".radio");
+			//for (var i = 0; i < x.length; i++) {
+				//x[i].style.display = "none";
+				//x[i].hide();
+			//}
+		//}
+		//});
+	//$('#mods').trigger("change");
+});
+</script>
+</head>
+<body>
+<h1> Prototype - Configuration Duckietown </h1>
+<div id="div_camera" class="div_radio">
+<select id="mods" name="modules">
+	<option value="Camera" selected="selected">Camera</option>
+	<option value="Navigation">Navigation</option>
+	<option value="Localization">Localization</option>
+	<option value="Filename">Filename</option>
+	<option value="Apriltags">Apriltags</option>
+	<option value="Coordination">Coordination</option>
+	<option value="Specific flag">Specific flag</option>
+</select>
+</div>
+<div id="div_navigation" class="div_radio">
+<h3> Navigation </h3>
+</div>
+<div id="div_localization" class="div_radio">
+<h3> Localization </h3>
+</div>
+<div id="div_buttons">
+	<div class="btn">
+		<button id="btn_ros2java" onclick="rosToJava()">ROS to Java</button>
+		<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
+	</div>
+	<div class="btn">
+		<button id="btn_java2ros" onclick="parsetoROS()">Java to ROS</button>
+		<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
+	</div>
+</div>
+</body>
+>>>>>>> 8f4eee118f21251c8ea91131cc5bd9a7ba3f2a1b
 </html> 
