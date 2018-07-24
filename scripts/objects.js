@@ -33,12 +33,13 @@ function addRadioBool(parsedValues){
 			$("#"+temp).append(text);
 			$("#"+temp).append(radioInput);
 		}
+		htmlAdd += "</div>";
 		htmlAdd += "</div><br>";
 		//$("#mods").after("</div>");
 		//$("#mods").after("<br>");
 	}
-	htmlAdd += "</div><br>";
-	$("#h1").after(htmlAdd);
+	htmlAdd += "<br>";
+	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
 var dict = {"Camera":"/camera/"}
