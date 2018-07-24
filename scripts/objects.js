@@ -1,12 +1,18 @@
-function addRadioBool(name, category){
+function addRadioBool(parsedValues){
 	var category = "";
-	for (var i = 0; i< name.length ; i++){
-		if (name[i] == "class"){
-			category = name[i+1];
+	var flag = 0;
+	for (var i = 0; i < parsedValues.length ; i++){
+		if (flag){
+			category = parsedValues[i];
+			flag = 0;
 			break;
 		}
-		var id = "radio_"+name[i];
-		$("#mods").after("<div class='radio' id='"+id+"'>"+name[i]+ "<br>");
+		if (parsedValues[i] == "class"){
+			flag = 1;
+			break;
+		}
+		var id = "radio_"+parsedValues[i];
+		$("#mods").after("<div class='radio' id='"+id+"'>"+parsedValues[i]+ "<br>");
 		//$("#"+id).append("<br>");
 		//Create 2 buttons for every option (T/F)
 		for (var j = 0 ; j < 2 ; j++){
@@ -15,11 +21,11 @@ function addRadioBool(name, category){
 			text.innerHTML = j%2 ? 'False' : 'True';
 			radioInput.setAttribute('type', 'radio');
 			radioInput.setAttribute('class', category);
-			radioInput.setAttribute('name', name[i]); 
-			radioInput.setAttribute('id', name[i]+j);
+			radioInput.setAttribute('name', parsedValues[i]); 
+			radioInput.setAttribute('id', parsedValues[i]+j);
 			radioInput.setAttribute('value', text.innerHTML);
 			var temp = id;
-			if (name[i].indexOf('/') !== -1){
+			if (parsedValues[i].indexOf('/') !== -1){
 				temp = id.replace('/','\\/');
 			}
 			$("#"+temp).append(text);
