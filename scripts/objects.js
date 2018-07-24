@@ -1,10 +1,11 @@
 function addRadioBool(parsedValues){
 	var category = "";
 	var flag = 0;
+	var htmlAdd = "";
 	for (var i = 0; i < parsedValues.length ; i++){
 		if (flag){
 			category = parsedValues[i];
-			$("div_camera").after("<div id='div_" + category + " class='div_radio'> <h3> " + category + "</h3> </div>");
+			text = "<div id='div_" + category + " class='div_radio'> <h3> " + category + "</h3>";
 			flag = 0;
 			break;
 		}
@@ -13,7 +14,7 @@ function addRadioBool(parsedValues){
 			break;
 		}
 		var id = "radio_"+parsedValues[i];
-		$("#mods").after("<div class='radio' id='"+id+"'>"+parsedValues[i]+ "<br>");
+		htmlAdd += "<div class='radio' id='"+id+"'>"+parsedValues[i]+ "<br>";
 		//$("#"+id).append("<br>");
 		//Create 2 buttons for every option (T/F)
 		for (var j = 0 ; j < 2 ; j++){
@@ -32,10 +33,12 @@ function addRadioBool(parsedValues){
 			$("#"+temp).append(text);
 			$("#"+temp).append(radioInput);
 		}
-		$("#mods").after("</div>");
-		$("#mods").after("<br>");
+		htmlAdd += "</div><br>";
+		//$("#mods").after("</div>");
+		//$("#mods").after("<br>");
 	}
-	$("#mods").after("<br>");
+	htmlAdd += "</div><br>";
+	$("#div_camera").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
 var dict = {"Camera":"/camera/"}
