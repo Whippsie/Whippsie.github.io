@@ -38,7 +38,7 @@ function addRadioBool(parsedValues){
 		//$("#mods").after("<br>");
 	}
 	htmlAdd += "</div><br>";
-	$("#div_camera").after(htmlAdd);
+	$("#h1").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
 var dict = {"Camera":"/camera/"}
