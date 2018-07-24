@@ -7,11 +7,11 @@ function addRadioBool(parsedValues){
 			category = parsedValues[i];
 			text = "<div id='div_" + category + " class='div_radio'> <h3> " + category + "</h3>";
 			flag = 0;
-			break;
+			continue;
 		}
 		if (parsedValues[i] == "class"){
 			flag = 1;
-			break;
+			continue;
 		}
 		var id = "radio_"+parsedValues[i];
 		htmlAdd += "<div class='radio' id='"+id+"'>"+parsedValues[i]+ "<br>";
