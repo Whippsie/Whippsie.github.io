@@ -70,6 +70,8 @@ $(document).ready(function(){
 </head>
 <body>
 <h1 id="title"> Prototype - Configuration Duckietown </h1>
+<div id="space">
+</div>
 <!--<div id="div_camera" class="div_radio">
 <h3> Camera </h3>
 <!--
@@ -93,11 +95,11 @@ $(document).ready(function(){
 -->
 <div id="div_buttons">
 	<div class="btn">
-		<button id="btn_ros2java" onclick="rosToJava()">ROS to Java</button>
+		<button id="btn_ros2java" onclick="rosToJava()">Get config off ROS Launch file</button>
 		<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
 	</div>
 	<div class="btn">
-		<button id="btn_java2ros" onclick="parsetoROS()">Java to ROS</button>
+		<button id="btn_java2ros" onclick="parsetoROS()">Generate ROS Launch file from config</button>
 		<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
 	</div>
 </div>

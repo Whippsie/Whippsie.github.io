@@ -9,6 +9,10 @@
 	clear: both;
 }
 
+#space{
+	height:500px;
+	width:100%;
+}
 button{
 	border-radius: 4px;
 	background-color: white;
