@@ -1,11 +1,16 @@
 function addRadioBool(parsedValues){
 	var category = "";
 	var flag = 0;
+	var first = 1;
 	var htmlAdd = "";
 	for (var i = 0; i < parsedValues.length ; i++){
 		if (flag){
 			category = parsedValues[i];
-			htmlAdd = "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
+			if (!first){
+				htmlAdd += "</div>";
+			}
+			first = 0;
+			htmlAdd += "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
 			flag = 0;
 			continue;
 		}
@@ -30,11 +35,11 @@ function addRadioBool(parsedValues){
 			if (parsedValues[i].indexOf('/') !== -1){
 				temp = id.replace('/','\\/');
 			}
+			//TODO : Need to change this for static text, because the div doesn't exist yet
 			$("#"+temp).append(text);
 			$("#"+temp).append(radioInput);
 		}
 		htmlAdd += "</div>";
-		htmlAdd += "</div><br>";
 		//$("#mods").after("</div>");
 		//$("#mods").after("<br>");
 	}

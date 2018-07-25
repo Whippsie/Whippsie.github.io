@@ -61,13 +61,16 @@ function preparedata (data){
 	var j = 0;
 	data = data.replace(/\n/g,'');
 	data = data.replace(/\t/g, ' ');
+	data = data.replace(/\s+/g, ' ').trim();
 	var res = data.split(" ");
 	for (var i = 0; i<res.length;i++){
-		if (res[i] == "public" && res[i+1] == "class"){
-			name[j] = "class";
-			j++;
-			name[j] = res[i+2];
-			j++; 
+		if (res[i] == "public"){
+			if (res[i+1] == "class"){
+				name[j] = "class";
+				j++;
+				name[j] = res[i+2];
+				j++; 
+			}
 		} else if (res[i] == "private" && res[i+1] == "boolean"){
 			//For now only checks variables
 			//For now only supports boolean type
