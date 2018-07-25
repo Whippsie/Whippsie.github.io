@@ -23,23 +23,26 @@ function addRadioBool(parsedValues){
 		//$("#"+id).append("<br>");
 		//Create 2 buttons for every option (T/F)
 		for (var j = 0 ; j < 2 ; j++){
-			var radioInput = document.createElement('input');
 			var text = document.createElement('label');
 			text.innerHTML = j%2 ? 'False' : 'True';
-			radioInput.setAttribute('type', 'radio');
-			radioInput.setAttribute('class', category);
-			radioInput.setAttribute('name', parsedValues[i]); 
-			radioInput.setAttribute('id', parsedValues[i]+j);
-			radioInput.setAttribute('value', text.innerHTML);
+			htmlAdd += "<input type='radio' name='" + parsedValues[i]+"' value='"+text.innerHTML+"' id='"+(parsedValues[i]+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
+  
+			//var radioInput = document.createElement('input');
+			
+			//radioInput.setAttribute('type', 'radio');
+			//radioInput.setAttribute('class', category);
+			//radioInput.setAttribute('name', parsedValues[i]); 
+			//radioInput.setAttribute('id', parsedValues[i]+j);
+			//radioInput.setAttribute('value', text.innerHTML);
 			var temp = id;
 			if (parsedValues[i].indexOf('/') !== -1){
 				temp = id.replace('/','\\/');
 			}
 			//TODO : Need to change this for static text, because the div doesn't exist yet
-			$("#"+temp).append(text);
-			$("#"+temp).append(radioInput);
+			//$("#"+temp).append(text);
+			//$("#"+temp).append(radioInput);
 		}
-		htmlAdd += "</div>";
+		htmlAdd += "<br></div>";
 		//$("#mods").after("</div>");
 		//$("#mods").after("<br>");
 	}
