@@ -16,25 +16,32 @@ function parsetoROS(){
 
 function dictToJava(args){
 	var javatext="";
-	//TODO: Check the node and adapt instead of just giving Camera
-	javatext += "public class " + "Camera { \n";
+	javatext += "public class " + launchfile + " { \n";
 	for (var key in args){
 		if (args.hasOwnProperty(key)) {
-			var getParamPos = key.indexOf(dict["Camera"]);
+			var getParamPos = key.indexOf(dict[launchfile]);
 			if (getParamPos !== -1){
-				var flag_name = key.slice(getParamPos + dict["Camera"].length);
+				var flag_name = key.slice(getParamPos + dict[launchfile].length);
 				javatext += " \t private boolean " + flag_name + " = " + args[key] + " ;\n";
 			}
 		}
 	}
 	javatext += "}";
-	writeTextFile("CameraFromROS.java", javatext, 'java');
+	writeTextFile(launchfile+"FromROS.java", javatext, 'java');
 	console.log(javatext);
 	return javatext;
 }
+
+var launchfile
 function rosToDict(){
 	var temp = loadFile("Camera.launch");
 	var res = temp.split("\n");
+	
+	//Get the demo name of the launch file
+	launchfile = res[0];
+	var launchtab = launchfile.split(" ");
+	launchfile = launchtab[1];
+	
 	var args = {};
 	for (var i = 0; i<res.length;i++){
 		if (res[i].indexOf('<arg')!== -1){

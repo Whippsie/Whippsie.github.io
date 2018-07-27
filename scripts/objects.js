@@ -50,11 +50,11 @@ function addRadioBool(parsedValues){
 	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
-var dict = {"Camera":"/camera/"}
+var dict = {"Camera":"/camera/","Localization":"/localization/"}
 
 function updateUI(javaDict){
 	//Remove hardcode
-	$('input:radio.Camera').each(function() {
+	$('input:radio.'+launchfile).each(function() {
 		jQuery(this).prop("checked", false);
 		//Si le radio appartient au dictionnaire et qu'on a la bonne valeur T/F présente dans le java, on le check
 		if (jQuery(this).attr('name') in javaDict && jQuery(this).attr('value') == javaDict[jQuery(this).attr('name')]){
