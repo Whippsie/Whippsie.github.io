@@ -31,13 +31,16 @@ public class Control {
 public class Specific {
 	private boolean visualization ;
 	private boolean wheels ;
-	private boolean obstacle_avoidance ;
-	private boolean vehicule_avoidance ;
-	private boolean parallel_avoidance ;
 	private boolean anti_instagram ; //default
 	private boolean LED ;
 	private boolean map_name ; //string
 	private boolean verbose ; //default
+} 
+
+public class Avoidance {
+	private boolean obstacle_avoidance ;
+	private boolean vehicule_avoidance ;
+	private boolean parallel_avoidance ;
 } 
 
 public class LaneFollowing {
