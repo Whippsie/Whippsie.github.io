@@ -34,7 +34,7 @@ function dictToJava(args){
 
 var launchfile
 function rosToDict(){
-	var temp = loadFile("Camera.launch");
+	var temp = loadFile("LocalizationModified.launch");
 	var res = temp.split("\n");
 	
 	//Get the demo name of the launch file
