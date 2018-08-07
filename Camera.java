@@ -9,7 +9,6 @@ public class Filename {
 
 public class Navigation {
 	private boolean navigation ;
-	private boolean local ;
 	private boolean navigation/apriltags_random ;
 	private boolean navigation/graph_planner ;
 	private boolean navigation/intersection_control ;
@@ -25,13 +24,28 @@ public class Localization {
 
 public class Control {
 	private boolean joystick ;
-	private boolean intersectiontype ;
-	private boolean coordination ;
+	private boolean intersectiontype ; //default string
+	private boolean coordination ; //default
 } 
 
 public class Specific {
+	private boolean visualization ;
 	private boolean wheels ;
 	private boolean obstacle_avoidance ;
 	private boolean vehicule_avoidance ;
 	private boolean parallel_avoidance ;
+	private boolean anti_instagram ; //default
+	private boolean LED ;
+	private boolean map_name ; //string
+	private boolean verbose ; //default
+} 
+
+public class LaneFollowing {
+	private boolean lane_following ;
+	private boolean /lane_following/stop_line_filter ;
+} 
+
+public class Apriltags {
+	private boolean apriltags ;
+	private boolean apriltags/local ;
 } 
