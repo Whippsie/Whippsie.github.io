@@ -56,12 +56,23 @@ var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navi
 
 
 function updateUI(javaDict){
-	//Remove hardcode
 	$('input:radio.'+launchfile).each(function() {
 		jQuery(this).prop("checked", false);
 		//Si le radio appartient au dictionnaire et qu'on a la bonne valeur T/F présente dans le java, on le check
 		if (jQuery(this).attr('name') in javaDict && jQuery(this).attr('value') == javaDict[jQuery(this).attr('name')]){
 			jQuery(this).prop("checked", true).trigger("click");
+		}
+	});
+}
+function resetAll(){
+	$('input:radio').each(function() {
+		jQuery(this).prop("checked", false);
+	}
+}
+function updateUISingle(currCategory, flag_name, value){
+	$('input:radio.'+currCategory).each(function() {
+		if (jQuery(this).attr('name') == flag_name){
+			jQuery(this).prop("checked", value).trigger("click");
 		}
 	});
 }

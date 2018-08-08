@@ -16,15 +16,16 @@ function parsetoROS(){
 
 function dictToJava(args){
 	var javatext="";
-
+	resetAll();
 	for (var key in args){
 		var currCategory = findCategory(key);
 		javatext += "public class " + currCategory + " { \n";
 		if (args.hasOwnProperty(key)) {
 			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
 			var flag_name = key;
-			javatext += " \t private boolean " + flag_name + " = " + args[key] + " ;\n";
-			
+			var value = args[key];
+			javatext += " \t private boolean " + flag_name + " = " + value + " ;\n";
+			updateUISingle(currCategory, flag_name, value);
 		}
 	}
 	javatext += "}";
