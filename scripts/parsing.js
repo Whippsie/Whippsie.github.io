@@ -4,7 +4,7 @@ function parsetoROS(){
 	//For demos, using a master file
 	ros += '\t <include file="$(find duckietown_demos)/launch/master.launch"> \n ';
 	$('input:radio:checked').each(function() {
-		ros += '\t \t <arg name="'+dict["Camera"]+jQuery(this).attr('name') + '" value="' + jQuery(this).attr('value')+'" /> \n';
+		ros += '\t \t <arg name="'+jQuery(this).attr('name') + '" value="' + jQuery(this).attr('value')+'" /> \n';
 	});
 	ros += '\t </include>';
 	ros += '\n </launch>';
