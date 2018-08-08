@@ -1,7 +1,7 @@
 public class Camera {
-	private boolean raw ;
-	private boolean local ;
-	private boolean raw/rect ;
+	private boolean camera/raw ;
+	private boolean camera/local ;
+	private boolean camera/raw/rect ;
 } 
 
 public class Filename {

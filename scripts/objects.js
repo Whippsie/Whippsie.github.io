@@ -71,7 +71,7 @@ function resetAll(){
 }
 function updateUISingle(currCategory, flag_name, value){
 	$('input:radio.'+currCategory).each(function() {
-		if (jQuery(this).attr('name') == flag_name){
+		if (jQuery(this).attr('name') == flag_name && jQuery(this).attr('value') == value){
 			jQuery(this).prop("checked", value).trigger("click");
 		}
 	});
