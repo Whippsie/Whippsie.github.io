@@ -50,9 +50,9 @@ function addRadioBool(parsedValues){
 	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
-var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance","LaneFollowing":"lane_following", 
-"Apriltags":"apriltags","Control":"joystick","Control":"intersectiontype" ,"Control":"coordination","Specific":"visualization", 
-"Specific":"wheels", "Specific":"anti_instagram","Specific":"LED","Specific":"map_name","Specific":"verbose"}
+var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance",
+"LaneFollowing":"lane_following", "Apriltags":"apriltags","Control":"joystick","Control":["intersectiontype", "coordination", "visualization"], 
+"Specific":["wheels", "anti_instagram", "LED", "map_name", "verbose"]}
 
 
 function updateUI(javaDict){

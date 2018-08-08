@@ -23,6 +23,9 @@ function dictToJava(args){
 		if (args.hasOwnProperty(key)) {
 			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
 			var flag_name = key;
+			if (flag_name.chatAt(0) == "/"){
+				flag_name = flag_name.substr(1);
+			}
 			var value = args[key];
 			javatext += " \t private boolean " + flag_name + " = " + value + " ;\n";
 			updateUISingle(currCategory, flag_name, value);
