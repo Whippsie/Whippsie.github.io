@@ -16,20 +16,30 @@ function parsetoROS(){
 
 function dictToJava(args){
 	var javatext="";
-	javatext += "public class " + launchfile + " { \n";
+
 	for (var key in args){
+		var currCategory = findCategory(key);
+		javatext += "public class " + currCategory + " { \n";
 		if (args.hasOwnProperty(key)) {
-			var getParamPos = key.indexOf(dict[launchfile]);
-			if (getParamPos !== -1){
-				var flag_name = key.slice(getParamPos + dict[launchfile].length);
-				javatext += " \t private boolean " + flag_name + " = " + args[key] + " ;\n";
-			}
+			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
+			var flag_name = key;
+			javatext += " \t private boolean " + flag_name + " = " + args[key] + " ;\n";
+			
 		}
 	}
 	javatext += "}";
 	writeTextFile(launchfile+"FromROS.java", javatext, 'java');
 	console.log(javatext);
 	return javatext;
+}
+
+function findCategory(arg){
+	for (var key in dict){
+		if (arg.includes(dict[key]){
+			return key;
+		}
+	}
+	return null;
 }
 
 var launchfile
@@ -42,6 +52,7 @@ function rosToDict(){
 	var launchtab = launchfile.split(" ");
 	launchfile = launchtab[1];
 	
+	//Dictionnaire avec key = nom de l'argument et value = true ou false selon la vrai valeur
 	var args = {};
 	for (var i = 0; i<res.length;i++){
 		if (res[i].indexOf('<arg')!== -1){
