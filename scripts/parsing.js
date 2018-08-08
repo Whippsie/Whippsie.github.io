@@ -41,7 +41,7 @@ function dictToJava(args){
 
 function findCategory(arg){
 	for (var key in dict){
-		if (arg.includes(dict[key]) || key.indexOf(arg) > 1 ){
+		if (arg.includes(dict[key]) || dict[key].includes(arg)){
 			return key;
 		}
 	}
