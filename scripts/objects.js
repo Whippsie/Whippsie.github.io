@@ -50,13 +50,16 @@ function addRadioBool(parsedValues){
 	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
-var dict = {"Camera":"/camera/","Localization":"/localization/"}
+var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance","LaneFollowing":"lane_following", 
+"Apriltags":"apriltags","Control":"joystick","Control":"intersectiontype" ,"Control":"coordination","Specific":"visualization", 
+"Specific":"wheels", "Specific":"anti_instagram","Specific":"LED","Specific":"map_name","Specific":"verbose"}
+
 
 function updateUI(javaDict){
 	//Remove hardcode
 	$('input:radio.'+launchfile).each(function() {
 		jQuery(this).prop("checked", false);
-		//Si le radio appartient au dictionnaire et qu'on a la bonne valeur T/F présente dans le java, on le check
+		//Si le radio appartient au dictionnaire et qu'on a la bonne valeur T/F prÃ©sente dans le java, on le check
 		if (jQuery(this).attr('name') in javaDict && jQuery(this).attr('value') == javaDict[jQuery(this).attr('name')]){
 			jQuery(this).prop("checked", true).trigger("click");
 		}
