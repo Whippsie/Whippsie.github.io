@@ -19,7 +19,9 @@ function dictToJava(args){
 	resetAll();
 	for (var key in args){
 		var currCategory = findCategory(key);
-		javatext += "public class " + currCategory + " { \n";
+		if (javatext.indexOf("public class " + currCategory) == -1){
+			javatext += "public class " + currCategory + " { \n";
+		}
 		if (args.hasOwnProperty(key)) {
 			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
 			var flag_name = key;
