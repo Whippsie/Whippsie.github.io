@@ -24,7 +24,7 @@ function addRadioBool(parsedValues){
 		//Create 2 buttons for every option (T/F)
 		for (var j = 0 ; j < 2 ; j++){
 			var text = document.createElement('label');
-			text.innerHTML = j%2 ? 'False' : 'True';
+			text.innerHTML = j%2 ? 'false' : 'true';
 			htmlAdd += "<input type='radio' name='" + parsedValues[i]+"' value='"+text.innerHTML+"' id='"+(parsedValues[i]+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
   
 			//var radioInput = document.createElement('input');
@@ -72,7 +72,7 @@ function resetAll(){
 function updateUISingle(currCategory, flag_name, value){
 	$('input:radio.'+currCategory).each(function() {
 		if (jQuery(this).attr('name') == flag_name && jQuery(this).attr('value') == value){
-			jQuery(this).prop("checked", value).trigger("click");
+			jQuery(this).prop("checked", true).trigger("click");
 		}
 	});
 }
