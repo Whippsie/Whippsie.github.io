@@ -67,7 +67,7 @@ function updateUI(javaDict){
 function resetAll(){
 	$('input:radio').each(function() {
 		jQuery(this).prop("checked", false);
-	}
+	});
 }
 function updateUISingle(currCategory, flag_name, value){
 	$('input:radio.'+currCategory).each(function() {
