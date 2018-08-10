@@ -1,25 +1,25 @@
 public class Camera {
-	private boolean camera/raw ;
-	private boolean camera/local ;
-	private boolean camera/raw/rect ;
+	private boolean /camera/raw ;
+	private boolean /camera/local ;
+	private boolean /camera/raw/rect ;
 } 
 
 public class Filename {
 } 
 
 public class Navigation {
-	private boolean navigation ;
-	private boolean navigation/apriltags_random ;
-	private boolean navigation/graph_planner ;
-	private boolean navigation/intersection_control ;
-	private boolean navigation/random_sr_turns ;	
+	private boolean /navigation ;
+	private boolean /navigation/apriltags_random ;
+	private boolean /navigation/graph_planner ;
+	private boolean /navigation/intersection_control ;
+	private boolean /navigation/random_sr_turns ;	
 } 
 
 public class Localization {
-	private boolean localization ;
-	private boolean localization/local ;
-	private boolean localization/map_name ;
-	private boolean localization/gui ;
+	private boolean /localization ;
+	private boolean /localization/local ;
+	private boolean /localization/map_name ;
+	private boolean /localization/gui ;
 } 
 
 public class Control {
@@ -50,5 +50,5 @@ public class LaneFollowing {
 
 public class Apriltags {
 	private boolean apriltags ;
-	private boolean apriltags/local ;
+	private boolean /apriltags/local ;
 } 
