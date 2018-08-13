@@ -81,13 +81,35 @@ function rosToDict(){
 }
 
 function preparedata (data){
-	var name = [];
-	var j = 0;
-	data = data.replace(/\n/g,'');
-	data = data.replace(/\t/g, ' ');
-	data = data.replace(/\s+/g, ' ').trim();
-	var res = data.split(" ");
+	var args = {};
+	var k = 0;
+	//data = data.replace(/\n/g,'');
+	//Replace tabulation by no space
+	data = data.replace(/\t/g, '');
+	//data = data.replace(/\s+/g, ' ').trim();
+	//Split each line
+	var res = data.split("\n");
 	for (var i = 0; i<res.length;i++){
+		//resplit to get name and value
+		var argParts = res.split(" ");
+		for (var j = 0; j<argParts.length;j++){
+			if (argParts[j].includes("name")){
+				//Format to get the argument name
+				var argName = argParts[j].replace('"','');
+				argName = argName.replace('name=','');
+			}
+			
+			var argCategory = findCategory(argName)
+			if (argCategory === null){
+				argCategory = "Undefined";
+			}
+			args[argCategory] = [];
+			args[argCategory].push (argName);
+			
+		}
+		
+		//TODO : Verifier si boolean, en ce moment suppose que ca l'est
+		/*
 		if (res[i] == "public"){
 			if (res[i+1] == "class"){
 				name[j] = "class";
@@ -101,8 +123,9 @@ function preparedata (data){
 			name[j] = res[i+2];
 			j++;
 		}
+		*/
 	}
-	return name;
+	return args;
 }
 
 function preparedataDict (data){
