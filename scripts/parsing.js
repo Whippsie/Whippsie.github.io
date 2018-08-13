@@ -102,7 +102,9 @@ function preparedata (data){
 				if (argCategory === null){
 					argCategory = "Undefined";
 				}
-				args[argCategory] = [];
+				if (args[argCategory] === mull){
+					args[argCategory] = [];
+				}
 				args[argCategory].push (argName);
 				
 				
