@@ -91,7 +91,7 @@ function preparedata (data){
 	var res = data.split("\n");
 	for (var i = 0; i<res.length;i++){
 		//resplit to get name and value
-		var argParts = res.split(" ");
+		var argParts = res[i].split(" ");
 		for (var j = 0; j<argParts.length;j++){
 			if (argParts[j].includes("name")){
 				//Format to get the argument name
