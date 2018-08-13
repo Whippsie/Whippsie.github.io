@@ -3,6 +3,24 @@ function addRadioBool(parsedValues){
 	var flag = 0;
 	var first = 1;
 	var htmlAdd = "";
+	for (var category in parsedValues){
+		var flagName = parsedValues[category];
+		htmlAdd += "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
+		var id = "radio_"+ flagName;
+		htmlAdd += "<div class='radio' id='"+id+"'>"+flagName+ "<br>";
+		
+		for (var j = 0 ; j < 2 ; j++){
+			var text = document.createElement('label');
+			text.innerHTML = j%2 ? 'false' : 'true';
+			htmlAdd += "<input type='radio' name='" + flagName+"' value='"+text.innerHTML+"' id='"+(flagName+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
+			var temp = id;
+			if (flagName.indexOf('/') !== -1){
+				temp = id.replace('/','\\/');
+			}
+		}
+		htmlAdd += "<br></div>";
+	}
+	/*
 	for (var i = 0; i < parsedValues.length ; i++){
 		if (flag){
 			category = parsedValues[i];
@@ -46,6 +64,7 @@ function addRadioBool(parsedValues){
 		//$("#mods").after("</div>");
 		//$("#mods").after("<br>");
 	}
+	*/
 	htmlAdd += "<br>";
 	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");

@@ -49,8 +49,8 @@ $(document).ready(function(){
 					dataType: "text",
 					success: function (data) {
 							//alert('prep new data');
-							var name = preparedata(data);
-							addRadioBool(name);
+							var args = preparedata(data);
+							addRadioBool(args);
 							
 					}   	
 				});
