@@ -97,14 +97,17 @@ function preparedata (data){
 				//Format to get the argument name
 				var argName = argParts[j].replace('"','');
 				argName = argName.replace('name=','');
+				
+				var argCategory = findCategory(argName)
+				if (argCategory === null){
+					argCategory = "Undefined";
+				}
+				args[argCategory] = [];
+				args[argCategory].push (argName);
+				
+				
 			}
-			
-			var argCategory = findCategory(argName)
-			if (argCategory === null){
-				argCategory = "Undefined";
-			}
-			args[argCategory] = [];
-			args[argCategory].push (argName);
+
 			
 		}
 		
