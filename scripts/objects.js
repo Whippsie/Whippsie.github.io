@@ -5,8 +5,9 @@ function addRadioBool(parsedValues){
 	for (var category in parsedValues){
 		var flags = parsedValues[category];
 		//For every flag in the category
-		for (var flagName in flags){
+		for (var flag in flags){
 			htmlAdd += "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
+			var flagName = flags[flag];
 			var id = "radio_"+ flagName;
 			htmlAdd += "<div class='radio' id='"+id+"'>"+flagName+ "<br>";
 			
