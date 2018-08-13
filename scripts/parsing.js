@@ -95,7 +95,7 @@ function preparedata (data){
 		for (var j = 0; j<argParts.length;j++){
 			if (argParts[j].includes("name")){
 				//Format to get the argument name
-				var argName = argParts[j].replace('"','');
+				var argName = argParts[j].replace('"/g','');
 				argName = argName.replace('name=','');
 				
 				var argCategory = findCategory(argName)
