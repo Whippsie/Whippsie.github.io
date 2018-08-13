@@ -1,24 +1,27 @@
 function addRadioBool(parsedValues){
-	var category = "";
-	var flag = 0;
-	var first = 1;
 	var htmlAdd = "";
+	//parsedValues is a dictionary containing array
+	//key = category, values = flagnames
 	for (var category in parsedValues){
-		var flagName = parsedValues[category];
-		htmlAdd += "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
-		var id = "radio_"+ flagName;
-		htmlAdd += "<div class='radio' id='"+id+"'>"+flagName+ "<br>";
-		
-		for (var j = 0 ; j < 2 ; j++){
-			var text = document.createElement('label');
-			text.innerHTML = j%2 ? 'false' : 'true';
-			htmlAdd += "<input type='radio' name='" + flagName+"' value='"+text.innerHTML+"' id='"+(flagName+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
-			var temp = id;
-			if (flagName.indexOf('/') !== -1){
-				temp = id.replace('/','\\/');
+		var flags = parsedValues[category];
+		//For every flag in the category
+		for (var flagName in flags){
+			htmlAdd += "<div id='div_" + category + "' class='div_radio'> <h3> " + category + " </h3>";
+			var id = "radio_"+ flagName;
+			htmlAdd += "<div class='radio' id='"+id+"'>"+flagName+ "<br>";
+			
+			//Create 2 radio buttons true and false
+			for (var j = 0 ; j < 2 ; j++){
+				var text = document.createElement('label');
+				text.innerHTML = j%2 ? 'false' : 'true';
+				htmlAdd += "<input type='radio' name='" + flagName+"' value='"+text.innerHTML+"' id='"+(flagName+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
+				var temp = id;
+				if (flagName.indexOf('/') !== -1){
+					temp = id.replace('/','\\/');
+				}
 			}
-		}
-		htmlAdd += "<br></div>";
+			htmlAdd += "<br></div>";
+		}		
 	}
 	/*
 	for (var i = 0; i < parsedValues.length ; i++){
