@@ -22,6 +22,16 @@ function rosToJava(){
 	//updateUI(attributes);
 }
 
+function compare(){
+	var selected = jQuery('#demo_files').val();
+	$.ajax({
+	url: selected+".launch",
+	dataType: "text",
+	success: function (data) {
+			alert(data);
+	}   	
+});
+}
 $(document).ready(function(){
 	//$('#mods').change(function(){
 		//var selected = jQuery(this).val();
@@ -72,27 +82,8 @@ $(document).ready(function(){
 <h1 id="title"> Prototype - Configuration Duckietown </h1>
 <div id="space">
 </div>
-<!--<div id="div_camera" class="div_radio">
-<h3> Camera </h3>
-<!--
-<select id="mods" name="modules">
-	<option value="Camera" selected="selected">Camera</option>
-	<option value="Navigation">Navigation</option>
-	<option value="Localization">Localization</option>
-	<option value="Filename">Filename</option>
-	<option value="Apriltags">Apriltags</option>
-	<option value="Coordination">Coordination</option>
-	<option value="Specific flag">Specific flag</option>
-</select>
 
-</div>-->
-<!--<div id="div_navigation" class="div_radio">
-<h3> Navigation </h3>
-</div>
-<div id="div_localization" class="div_radio">
-<h3> Localization </h3>
-</div>
--->
+
 <div id="div_buttons">
 	<div class="btn">
 		<button id="btn_ros2java" onclick="rosToJava()">Get config off ROS Launch file</button>
@@ -103,5 +94,16 @@ $(document).ready(function(){
 		<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
 	</div>
 </div>
+<!-- change the drop down list to static, checks the files in the folder -->
+<select name="demo_files">
+  <option value="volvo">indefinite_navigation</option>
+  <option value="saab">intersection</option>
+  <option value="fiat">joystick</option>
+  <option value="audi">lane_following</option>
+  <option value="audi">localization</option>
+  <option value="audi">localization_frontend</option>
+  <option value="audi">localization_navigation</option>
+</select>
+<button id="btn_demos" onclick="compare()">Compare config</button>
 </body>
 </html>
