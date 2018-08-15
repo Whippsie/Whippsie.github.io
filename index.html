@@ -25,7 +25,7 @@ function rosToJava(){
 function compare(){
 	var selected = $('#demo_files').val();
 	$.ajax({
-	url: selected+".launch",
+	url: "demos/"+selected+".launch",
 	dataType: "text",
 	success: function (data) {
 			alert(data);
