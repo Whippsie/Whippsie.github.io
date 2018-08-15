@@ -9,13 +9,13 @@ function addRadioBool(parsedValues){
 		for (var flag in flags){
 			var flagName = flags[flag];
 			var id = "radio_"+ flagName;
-			htmlAdd += "<div class='radio' id='"+id+"'>"+flagName+ "<br>";
+			htmlAdd += "<div class='radio' id='"+id+"'> <label name='title_"+flagName+ "'>"+flagName+"</label><br>";
 			
 			//Create 2 radio buttons true and false
 			for (var j = 0 ; j < 2 ; j++){
 				var text = document.createElement('label');
 				text.innerHTML = j%2 ? 'false' : 'true';
-				htmlAdd += "<input type='radio' name='" + flagName+"' value='"+text.innerHTML+"' id='"+(flagName+j)+"' class='"+category+"' >"+ text.innerHTML + "<br>";
+				htmlAdd += "<input type='radio' name='" + flagName+"' value='"+text.innerHTML+"' id='"+(flagName+j)+"' class='"+category+"' > <label for='"+flagName+ "'>"+text.innerHTML+"</label><br>";
 				var temp = id;
 				if (flagName.indexOf('/') !== -1){
 					temp = id.replace('/','\\/');

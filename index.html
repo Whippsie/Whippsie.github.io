@@ -16,33 +16,44 @@ function getAllIndexes(arr, val) {
     return indexes;
 }
 function rosToJava(){
-	var args = rosToDict();
-	var javatext = dictToJava(args);
-	//var attributes = preparedataDict(javatext);
-	//updateUI(attributes);
+	if (dataUser==""){
+		alert('Please load a launch file first');
+	}else{
+		var dictUser = rosToDict(dataUser);
+		dictToJava(dictUser);
+	}
 }
 function readFile (fullpath){
+	var result="";
 	$.ajax({
 		url: fullpath,
+		async: false,
 		dataType: "text",
 		success: function (data) {
-			return data;
+			result = data;
 		}
 	});
+	return result;
 }
 
 function compareConfig(){
-var dictDemo = prepDemoDict();
-var dictUser = prepConfigDict();
-compareDict(dictDemo, dictUser);
+	var dictDemo = prepDemoDict();
+	var dictUser = prepConfigDict();
+	compareDict(dictDemo, dictUser);
+	$('#legend_titlenotice').toggleClass('hide');
+	$('#legend_missing').toggleClass('hide');
+	$('#legend_incorrect').toggleClass('hide');
 }
 
 function compareDict(dictDemo, dictUser){
 	for (var keyDemo in dictDemo){
 		var valueDemo = dictDemo[keyDemo];
+		if (keyDemo == "veh"){
+			continue;
+		}
 		for (var keyUser in dictUser){
 			var valueUser = dictUser[keyUser];
-			if (valueUser == valueDemo){
+			if (keyUser == keyDemo && valueUser == valueDemo){
 				delete dictDemo[keyDemo];
 				delete dictUser[keyUser];
 			}
@@ -55,17 +66,23 @@ function compareDict(dictDemo, dictUser){
 	}
 	//Those still in config are extra to demo
 	for (var keyUser in dictUser){
-		changeColorRadio(keyUser,dictUser[dictUser],'incorrect');
+		changeColorRadio(keyUser,dictUser[keyUser],'incorrect');
 	}
 }
 
 //typeError is either incorrect (extra) or missing 
 function changeColorRadio(radioName, value, typeError){
-	$('input:radio[name='+radioName+']').each(function() {
-		if (jQuery(this).attr('value') == value){
+	$('label[name="title_'+radioName+'"]').each(function() {
+			jQuery(this).addClass('titleNotice');
+	});
+	$('label[for="'+radioName+'"]').each(function() {
+		var potato = "hi";
+		if (jQuery(this).text() == value){
+			var potato = "ho";
 			jQuery(this).addClass(typeError);
 		}
 	});
+
 }
 function prepDemoDict(){
 	var selected = $('#demo_files').val();
@@ -75,54 +92,25 @@ function prepDemoDict(){
 }
 
 function prepConfigDict(){
-	parsetoROS ('ConfigUser');
-	var dataUser = readFile("ConfigUser.launch");
+	//parsetoROS ('ConfigUser');
+	//var dataUser = readFile("ConfigUser.launch");
 	var dictUser = rosToDict(dataUser);
 	return dictUser;
 }
+function fetchConfigFile(){
+	loadFileAsText();
+	alert('Launch file loaded');
+}
 $(document).ready(function(){
-	//$('#mods').change(function(){
-		//var selected = jQuery(this).val();
-		//TODO: Remove next line eventually
-		//if (selected == "Camera"){
-		/*
-			var exist = false;
-			$('input:radio').each(function() {
-				if (jQuery(this).attr('class') == selected){
-					exist = true;
-				};
-			});
-			*/
-			//if (exist){
-			//TODO: Remove hardcoded radio, change the name
-				//var x = document.querySelectorAll(".radio");
-				//for (var i = 0; i < x.length; i++) {
-					//x[i].show();
-					//x[i].style.display = "block";
-				//}
-			//}else{
-			//TODO: Vérifier si un des radio existe, si oui, juste switch la vue de none à inline
 				$.ajax({
 					url: "flags.txt",
 					dataType: "text",
 					success: function (data) {
-							//alert('prep new data');
 							var args = preparedata(data);
 							addRadioBool(args);
 							
 					}   	
 				});
-			
-		//}else{
-		//var allParas = document.getElementsByTagName('input');
-			//var x = document.querySelectorAll(".radio");
-			//for (var i = 0; i < x.length; i++) {
-				//x[i].style.display = "none";
-				//x[i].hide();
-			//}
-		//}
-		//});
-	//$('#mods').trigger("change");
 });
 </script>
 </head>
@@ -131,27 +119,51 @@ $(document).ready(function(){
 <div id="space">
 </div>
 
+<div class="floatL">
+	<div id="split3">
+		<div class="floatL">
+			<div class="btn">
+				<button id="btn_ros2java" onclick="rosToJava()">Launch -> Config</button>
+				<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
+			</div>
+			<div class="btn">
+				<button id="btn_java2ros" onclick="parsetoROS('Test')"> Config -> Launch</button>
+				<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
+			</div>
+		</div>
+		<div class = "sameline">
+				<div class ="btn floatL">
+					<button id="btn_demos" onclick="compareConfig()">Compare config</button>
+				</div>
+				<div class ="sameline">
+					<p id="legend_titlenotice" class="titleNotice under hide">Flag is different</p>
+					<p id="legend_missing" class="missing under hide">In demo, not in config</p>
+					<p id="legend_incorrect" class="incorrect under hide">In config, not in demo</p>
+				</div>
 
-<div id="div_buttons">
-	<div class="btn">
-		<button id="btn_ros2java" onclick="rosToJava()">Get config off ROS Launch file</button>
-		<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
+		</div>
+		<div class="sameline">
+			<select id="demo_files" class="floatL">
+			  <option value="indefinite_navigation">indefinite_navigation</option>
+			  <option value="intersection">intersection</option>
+			  <option value="joystick">joystick</option>
+			  <option value="lane_following">lane_following</option>
+			  <option value="localization">localization</option>
+			  <option value="localization_frontend">localization_frontend</option>
+			  <option value="localization_navigation">localization_navigation</option>
+			</select>
+		</div>
 	</div>
-	<div class="btn">
-		<button id="btn_java2ros" onclick="parsetoROS('Test')">Generate ROS Launch file from config</button>
-		<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
+
+	<div class="floatL">
+		<input type="file" id="fileToLoad">
+		<button onclick="fetchConfigFile()">Load Launch</button>
 	</div>
+
+	<!-- change the drop down list to dynamic, checks the files in the folder -->
+
 </div>
-<!-- change the drop down list to static, checks the files in the folder -->
-<select id="demo_files">
-  <option value="indefinite_navigation">indefinite_navigation</option>
-  <option value="intersection">intersection</option>
-  <option value="joystick">joystick</option>
-  <option value="lane_following">lane_following</option>
-  <option value="localization">localization</option>
-  <option value="localization_frontend">localization_frontend</option>
-  <option value="localization_navigation">localization_navigation</option>
-</select>
-<button id="btn_demos" onclick="compareConfig()">Compare config</button>
+
+</div>
 </body>
 </html>

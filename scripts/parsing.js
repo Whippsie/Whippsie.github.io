@@ -15,13 +15,13 @@ function parsetoROS(filename){
 
 
 function dictToJava(args){
-	var javatext="";
+	//var javatext="";
 	resetAll();
 	for (var key in args){
 		var currCategory = findCategory(key);
-		if (javatext.indexOf("public class " + currCategory) == -1){
-			javatext += "public class " + currCategory + " { \n";
-		}
+		//if (javatext.indexOf("public class " + currCategory) == -1){
+			//javatext += "public class " + currCategory + " { \n";
+		//}
 		if (args.hasOwnProperty(key)) {
 			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
 			var flag_name = key;
@@ -30,14 +30,14 @@ function dictToJava(args){
 				//flag_name = flag_name.substr(1);
 			//}
 			var value = args[key];
-			javatext += " \t private boolean " + flag_name + " = " + value + " ;\n";
+			//javatext += " \t private boolean " + flag_name + " = " + value + " ;\n";
 			updateUISingle(currCategory, flag_name, value);
 		}
 	}
-	javatext += "}";
-	writeTextFile(launchfile+"FromROS.java", javatext, 'java');
-	console.log(javatext);
-	return javatext;
+	//javatext += "}";
+	//writeTextFile(launchfile+"FromROS.java", javatext, 'java');
+	//console.log(javatext);
+	//return javatext;
 }
 
 function findCategory(arg){
@@ -51,6 +51,7 @@ function findCategory(arg){
 
 var launchfile
 function rosToDict(data){
+	data = data.replace(new RegExp("\"/>", 'g'), "\" />");
 	//var temp = loadFile(filepath);
 	var res = data.split("\n");
 	
@@ -68,6 +69,9 @@ function rosToDict(data){
 			for (var j = 0; j<split.length;j++){
 				if (split[j].indexOf('name=')!== -1){
 					arg_name = split[j].slice(6,split[j].length-1);
+				}
+				if (arg_name == "veh"){
+					continue;
 				}
 				if (split[j].indexOf('value=')!== -1){
 					var arg_val = split[j].slice(7,split[j].length-1);
@@ -94,7 +98,7 @@ function preparedata (data){
 		//resplit to get name and value
 		var argParts = res[i].split(" ");
 		for (var j = 0; j<argParts.length;j++){
-			if (argParts[j].includes("name")){
+			if (argParts[j].includes("name=")){
 				//Format to get the argument name
 				var argName = argParts[j].replace(/"/g,'');
 				argName = argName.replace('name=','');

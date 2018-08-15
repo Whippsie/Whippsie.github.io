@@ -3,9 +3,21 @@
 	margin-right:35px;
 	width:190px;
 }
+.floatL{
+	float:left;
+}
+.hide{
+	display:none;
+}
 
-#div_buttons{
-	clear: both;
+.sameline{
+	display:inline-block;
+}
+.pushLeft{
+	margin-left:75px;
+}
+p {
+	padding-left:20px;
 }
 .incorrect{
     color: red;
@@ -14,9 +26,11 @@
 	color: yellow;
 }
 
-#space{
-	height:500px;
-	width:100%;
+.titleNotice{
+	color: blue;
+}
+#split3{
+	margin-bottom:100px;
 }
 button{
 	border-radius: 4px;
@@ -36,8 +50,10 @@ button:hover{
 }
 
 .btn{
-	display:inline-block;
+	margin-top:20px;
+	display:block;
 	margin-right:10px;
+	
 }
 
 h1 { 
