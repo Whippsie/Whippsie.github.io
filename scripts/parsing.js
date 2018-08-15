@@ -1,5 +1,5 @@
 
-function parsetoROS(){
+function parsetoROS(filename){
 	var ros = '<launch> \n \t <arg name="veh" default="$(env VEHICLE_NAME)"/> \n ';
 	//For demos, using a master file
 	ros += '\t <include file="$(find duckietown_demos)/launch/master.launch"> \n ';
@@ -10,7 +10,7 @@ function parsetoROS(){
 	ros += '\n </launch>';
 	//alert(ros);
 	console.log(ros);
-	writeTextFile("Camera.launch", ros, 'ros');
+	writeTextFile(filename+".launch", ros, 'ros');
 }
 
 
@@ -50,9 +50,9 @@ function findCategory(arg){
 }
 
 var launchfile
-function rosToDict(){
-	var temp = loadFile("LocalizationModified.launch");
-	var res = temp.split("\n");
+function rosToDict(data){
+	//var temp = loadFile(filepath);
+	var res = data.split("\n");
 	
 	//Get the demo name of the launch file
 	launchfile = res[0];

@@ -7,6 +7,12 @@
 #div_buttons{
 	clear: both;
 }
+.incorrect{
+    color: red;
+}
+.missing{
+	color: yellow;
+}
 
 #space{
 	height:500px;

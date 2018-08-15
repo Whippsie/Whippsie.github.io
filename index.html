@@ -21,16 +21,63 @@ function rosToJava(){
 	//var attributes = preparedataDict(javatext);
 	//updateUI(attributes);
 }
-
-function compare(){
-	var selected = $('#demo_files').val();
+function readFile (fullpath){
 	$.ajax({
-	url: "demos/"+selected+".launch",
-	dataType: "text",
-	success: function (data) {
-			alert(data);
-	}   	
-});
+		url: fullpath,
+		dataType: "text",
+		success: function (data) {
+			return data;
+	}  
+}
+
+function compareConfig(){
+var dictDemo = prepDemoDict();
+var dictUser = prepConfigDict();
+compareDict(dictDemo, dictUser);
+}
+
+function compareDict(dictDemo, dictUser){
+	for (var keyDemo in dictDemo){
+		var valueDemo = dictDemo[keyDemo];
+		for (var keyUser in dictUser){
+			var valueUser = dictUser[keyUser];
+			if (valueUser == valueDemo){
+				delete dictDemo[keyDemo];
+				delete dictUser[keyUser];
+			}
+		}
+	}
+	
+	//Those still in demo are missing from config
+	for (var keyDemo in dictDemo){
+		changeColorRadio(keyDemo,dictDemo[keyDemo],'missing');
+	}
+	//Those still in config are extra to demo
+	for (var keyUser in dictUser){
+		changeColorRadio(keyUser,dictUser[dictUser],'incorrect');
+	}
+}
+
+//typeError is either incorrect (extra) or missing 
+function changeColorRadio(radioName, value, typeError){
+	$('input:radio[name='+radioName+']').each(function() {
+		if (jQuery(this).attr('value') == value){
+			jQuery(this).addClass(typeError);
+		}
+	});
+}
+function prepDemoDict(){
+	var selected = $('#demo_files').val();
+	var dataDemo = readFile("demos/"+selected+".launch");
+	var dictDemo = rosToDict(data);
+	return dictDemo;
+}
+
+function prepConfigDict(){
+	parsetoROS ('ConfigUser');
+	var dataUser = readFile("ConfigUser.launch");
+	var dictUser = rosToDict(dataUser);
+	return dictUser;
 }
 $(document).ready(function(){
 	//$('#mods').change(function(){
@@ -90,7 +137,7 @@ $(document).ready(function(){
 		<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
 	</div>
 	<div class="btn">
-		<button id="btn_java2ros" onclick="parsetoROS()">Generate ROS Launch file from config</button>
+		<button id="btn_java2ros" onclick="parsetoROS('Test')">Generate ROS Launch file from config</button>
 		<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
 	</div>
 </div>
@@ -104,6 +151,6 @@ $(document).ready(function(){
   <option value="localization_frontend">localization_frontend</option>
   <option value="localization_navigation">localization_navigation</option>
 </select>
-<button id="btn_demos" onclick="compare()">Compare config</button>
+<button id="btn_demos" onclick="compareConfig()">Compare config</button>
 </body>
 </html>
