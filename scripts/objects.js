@@ -75,7 +75,7 @@ function addRadioBool(parsedValues){
 	$("#confirm").before("<br>");
 }
 var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance",
-"LaneFollowing":"lane_following", "Apriltags":"apriltags","Control":"joystick","Control":["intersectiontype", "coordination", "visualization"], 
+"LaneFollowing":"lane_following", "Apriltags":"apriltags","Control":["joystick","intersectiontype", "coordination", "visualization"], 
 "Specific":["wheels", "anti_instagram", "LED", "map_name", "verbose"]}
 
 
