@@ -70,7 +70,7 @@ function changeColorRadio(radioName, value, typeError){
 function prepDemoDict(){
 	var selected = $('#demo_files').val();
 	var dataDemo = readFile("demos/"+selected+".launch");
-	var dictDemo = rosToDict(data);
+	var dictDemo = rosToDict(dataDemo);
 	return dictDemo;
 }
 
