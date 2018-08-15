@@ -23,7 +23,7 @@ function rosToJava(){
 }
 
 function compare(){
-	var selected = jQuery('#demo_files').val();
+	var selected = $('#demo_files').val();
 	$.ajax({
 	url: selected+".launch",
 	dataType: "text",
@@ -95,14 +95,14 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- change the drop down list to static, checks the files in the folder -->
-<select name="demo_files">
-  <option value="volvo">indefinite_navigation</option>
-  <option value="saab">intersection</option>
-  <option value="fiat">joystick</option>
-  <option value="audi">lane_following</option>
-  <option value="audi">localization</option>
-  <option value="audi">localization_frontend</option>
-  <option value="audi">localization_navigation</option>
+<select id="demo_files">
+  <option value="indefinite_navigation">indefinite_navigation</option>
+  <option value="intersection">intersection</option>
+  <option value="joystick">joystick</option>
+  <option value="lane_following">lane_following</option>
+  <option value="localization">localization</option>
+  <option value="localization_frontend">localization_frontend</option>
+  <option value="localization_navigation">localization_navigation</option>
 </select>
 <button id="btn_demos" onclick="compare()">Compare config</button>
 </body>
