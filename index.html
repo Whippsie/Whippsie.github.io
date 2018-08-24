@@ -3,9 +3,9 @@
 <head>
 <link rel="stylesheet" type="text/css" href="styles/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="scripts/files.js"></script>
-<script src="scripts/objects.js"></script>
-<script src="scripts/parsing.js"></script>
+<script src="./scripts/files.js"></script>
+<script src="./scripts/objects.js"></script>
+<script src="./scripts/parsing.js"></script>
 <script>
 //TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
 function getAllIndexes(arr, val) {
@@ -101,9 +101,26 @@ function fetchConfigFile(){
 	loadFileAsText();
 	alert('Launch file loaded');
 }
+
+function callJavaApp(){
+	var url = '/call-java-app';
+	console.log(url);
+	var xmlHttp = new XMLHttpRequest();
+
+	xmlHttp.onreadystatechange = function () {
+		if (xmlHttp.readyState === 4) {
+			var test = xmlHttp.responseText;
+			console.log(test);
+		}
+	}
+	xmlHttp.open("GET", url, true); // false for synchronous request
+	xmlHttp.send();
+
+}
+
 $(document).ready(function(){
 				$.ajax({
-					url: "flags.txt",
+					url: "./flags.txt",
 					dataType: "text",
 					success: function (data) {
 							var args = preparedata(data);
@@ -158,6 +175,11 @@ $(document).ready(function(){
 	<div class="floatL">
 		<input type="file" id="fileToLoad">
 		<button onclick="fetchConfigFile()">Load Launch</button>
+	</div>
+	<div class="sameline">
+		<div class="btn">
+			<button id="btn_export" onclick="callJavaApp()"> Call Java </button>
+		</div>
 	</div>
 
 	<!-- change the drop down list to dynamic, checks the files in the folder -->
