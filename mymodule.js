@@ -11,9 +11,10 @@ var child = exec('java -jar E:/user/Maude/Desktop/Node/JavaApp.jar',
 module.exports = child;
 */
 var exec = require('child_process').exec;
-function executeJava() {
+function executeJava(location,file) {
 	  //child_process.exec(command[, options][, callback])
-      exec('java -jar E:/user/Maude/Desktop/Node/JavaApp.jar '+,
+      //exec('java -jar E:/NeonWorks/canard.jar '+ "input/demo.launch",
+	  exec('java -jar '+ location + ' ' + file + '.launch ' + file + '_GMF.canard',
 		function (error, stdout, stderr){
 			console.log('Output -> ' + stdout);
 			if(error !== null){
@@ -22,6 +23,6 @@ function executeJava() {
 		});
 }
 
-exports.executeJava = function(){
-	return executeJava();
+exports.executeJava = function(location,file){
+	return executeJava(location,file);
 }

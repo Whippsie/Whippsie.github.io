@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Whippsie/Whippsie.github.io#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3"
   }
 }

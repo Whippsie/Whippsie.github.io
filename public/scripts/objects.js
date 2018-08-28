@@ -76,7 +76,9 @@ function addRadioBool(parsedValues){
 }
 var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance",
 "LaneFollowing":"lane_following", "Apriltags":"apriltags","Control":["joystick","intersectiontype", "coordination", "visualization"], 
-"Specific":["wheels", "anti_instagram", "LED", "map_name", "verbose"]}
+"Specific":["wheels", "anti_instagram", "map_name", "verbose"],"Odometry":["odometry_learning","/odometry_learning/kinematics",
+"/odometry_learning/visual_odometry","odometry","/odometry/forward_kinematics"],"LED":["LED","/LED/pattern_switch",
+"/LED/detector","/LED/joystick","/LED/interpreter"]}
 
 
 function updateUI(javaDict){

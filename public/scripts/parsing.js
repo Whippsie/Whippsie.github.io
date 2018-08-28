@@ -98,7 +98,8 @@ function preparedata (data){
 		//resplit to get name and value
 		var argParts = res[i].split(" ");
 		for (var j = 0; j<argParts.length;j++){
-			if (argParts[j].includes("name=")){
+			//removes the non T/F arguments
+			if (argParts[j].includes("name=") && (argParts[j+1].includes("true")||argParts[j+1].includes("false"))){
 				//Format to get the argument name
 				var argName = argParts[j].replace(/"/g,'');
 				argName = argName.replace('name=','');

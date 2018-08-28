@@ -12,10 +12,20 @@ app.get('/index', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
 
-app.get('/call-java-app', function (req, res){
-	var data = child.executeJava();
+app.use(express.urlencoded({extended: true})); 
+
+app.post('/call-java-app', function (req, res){
+	var location = req.body.location
+	console.log(location);
+	var nameConfigFile = req.body.nameConfigFile
+	console.log(nameConfigFile);
+	var data = child.executeJava(location,nameConfigFile);
 	res.send(data);
 });
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+})
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'))
 /*

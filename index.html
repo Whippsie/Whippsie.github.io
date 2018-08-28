@@ -8,6 +8,9 @@
 <script src="./scripts/parsing.js"></script>
 <script>
 //TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
+var pathJar="";
+var nameConfigFile="";
+
 function getAllIndexes(arr, val) {
     var indexes = [], i;
     for(i = 0; i < arr.length; i++)
@@ -113,9 +116,23 @@ function callJavaApp(){
 			console.log(test);
 		}
 	}
-	xmlHttp.open("GET", url, true); // false for synchronous request
-	xmlHttp.send();
+	xmlHttp.open("POST", url, true); // false for synchronous request
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send("location="+pathJar+"&nameConfigFile="+nameConfigFile);
 
+}
+function loadMenuEvents(){
+	$('#loadSeeConfig').click(function() {rosToJava(); return false; });
+	$('#generateConfig').click(function() {parsetoROS('Test'); return false; });
+	$('#compareConfig').click(function() {compareConfig(); return false; });
+	$('#callJavaApp').click(function() {callJavaApp(); return false; });
+	$('#setupConfig').click(function() {$("#setupInfos").toggle(); return false; });
+}
+
+function sendConfig(){
+pathJar = $('#jarFile').val();
+nameConfigFile = $('#configName').val();
+$("#setupInfos").toggle();
 }
 
 $(document).ready(function(){
@@ -125,19 +142,48 @@ $(document).ready(function(){
 					success: function (data) {
 							var args = preparedata(data);
 							addRadioBool(args);
-							
+							loadMenuEvents();
 					}   	
 				});
 });
+
+
 </script>
 </head>
 <body>
+<ul>
+  <li class="shine" href=""><a id="setupConfig" >Setup environment</a></li>
+  <li><a id="generateConfig" href="">Generate a configuration</a></li>
+  <li><a id="loadSeeConfig" href="">Load and see a configuration</a></li>
+  <li><a id="compareConfig" href="">Compare a configuration with demos</a></li>
+  <li><a id="callJavaApp" href="">Generate a GMF</a></li>
+  <li style="float:right"><a class="active" href="about.html">About</a></li>
+</ul>
+<div id="setupInfos">
+<p> Step 1 : </p>
+	<!--<input type="button" id="jarFileFakeBtn" onclick="document.getElementById('jarFile').click();" value="Give jar Location" />-->
+	Download the <a href="#todo">jar</a>
+	<!--<input type="file" id="jarFile" />-->
+<p> Step 2 : </p>
+	<form class="leftSpace">
+	  Write the absolute path to the jar : <br>
+	  <input type="text" id="jarFile" size="35" value="E:\Ducky_Genie\canardrunnable.jar"><br>
+	</form>
+<p> Step 3 : </p>
+	<form class="leftSpace">
+	  Choose a name for the Config File : <br>
+	  <input type="text" id="configName" value="myConfig"><br>
+	</form>
+	
+	<button id="sendConfig" class="topMarg" onclick="sendConfig()">Confirm</button>
+</div>
 <h1 id="title"> Prototype - Configuration Duckietown </h1>
 <div id="space">
 </div>
 
 <div class="floatL">
 	<div id="split3">
+	<!--
 		<div class="floatL">
 			<div class="btn">
 				<button id="btn_ros2java" onclick="rosToJava()">Launch -> Config</button>
@@ -147,7 +193,8 @@ $(document).ready(function(){
 				<button id="btn_java2ros" onclick="parsetoROS('Test')"> Config -> Launch</button>
 				<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
 			</div>
-		</div>
+		</div> -->
+		<!--
 		<div class = "sameline">
 				<div class ="btn floatL">
 					<button id="btn_demos" onclick="compareConfig()">Compare config</button>
@@ -158,7 +205,7 @@ $(document).ready(function(){
 					<p id="legend_incorrect" class="incorrect under hide">In config, not in demo</p>
 				</div>
 
-		</div>
+		</div>-->
 		<div class="sameline">
 			<select id="demo_files" class="floatL">
 			  <option value="indefinite_navigation">indefinite_navigation</option>
@@ -171,17 +218,19 @@ $(document).ready(function(){
 			</select>
 		</div>
 	</div>
-
+	<!--
 	<div class="floatL">
+		<caption> Load a launch configuration </caption>
 		<input type="file" id="fileToLoad">
 		<button onclick="fetchConfigFile()">Load Launch</button>
 	</div>
+
 	<div class="sameline">
 		<div class="btn">
 			<button id="btn_export" onclick="callJavaApp()"> Call Java </button>
 		</div>
 	</div>
-
+	-->
 	<!-- change the drop down list to dynamic, checks the files in the folder -->
 
 </div>
