@@ -7,18 +7,8 @@
 <script src="./scripts/objects.js"></script>
 <script src="./scripts/parsing.js"></script>
 <script>
-//TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
 var pathJar="E:\\Ducky_Genie\\canardrunnable.jar";
 var nameConfigFile="myConfig";
-
-function getAllIndexes(arr, val) {
-    var indexes = [], i;
-    for(i = 0; i < arr.length; i++)
-        if (arr[i] === val)
-            indexes.push(i);
-    return indexes;
-}
-
 
 function readFile (fullpath){
 	var result="";
@@ -31,55 +21,6 @@ function readFile (fullpath){
 		}
 	});
 	return result;
-}
-
-function compareConfig(){
-	$("#compareDemos").toggle();
-	var dictDemo = prepDemoDict();
-	var dictUser = prepConfigDict();
-	compareDict(dictDemo, dictUser);
-	$('#legend_titlenotice').toggleClass('hide');
-	$('#legend_missing').toggleClass('hide');
-	$('#legend_incorrect').toggleClass('hide');
-}
-
-function compareDict(dictDemo, dictUser){
-	for (var keyDemo in dictDemo){
-		var valueDemo = dictDemo[keyDemo];
-		if (keyDemo == "veh"){
-			continue;
-		}
-		for (var keyUser in dictUser){
-			var valueUser = dictUser[keyUser];
-			if (keyUser == keyDemo && valueUser == valueDemo){
-				delete dictDemo[keyDemo];
-				delete dictUser[keyUser];
-			}
-		}
-	}
-	
-	//Those still in demo are missing from config
-	for (var keyDemo in dictDemo){
-		changeColorRadio(keyDemo,dictDemo[keyDemo],'missing');
-	}
-	//Those still in config are extra to demo
-	for (var keyUser in dictUser){
-		changeColorRadio(keyUser,dictUser[keyUser],'incorrect');
-	}
-}
-
-//typeError is either incorrect (extra) or missing 
-function changeColorRadio(radioName, value, typeError){
-	$('label[name="title_'+radioName+'"]').each(function() {
-			jQuery(this).addClass('titleNotice');
-			jQuery(this).removeClass('normal');
-	});
-	$('label[for="'+radioName+'"]').each(function() {
-		if (jQuery(this).text() == value){
-			jQuery(this).addClass(typeError);
-			jQuery(this).removeClass('normal');
-		}
-	});
 }
 
 function eraseColorRadio(){
@@ -123,7 +64,7 @@ function callJavaApp(){
 function loadMenuEvents(){
 	$('#menuLoadSeeConfig').click(function() {loadSeeConfig(); return false; });
 	$('#menuGenerateConfig').click(function() {parsetoROS(nameConfigFile); return false; });
-	$('#menuCompareConfig').click(function() {loadConfig(); return false; });
+	$('#menuCompareConfig').click(function() {showCompareUI(); return false; });
 	$('#menuCallJavaApp').click(function() {callJavaApp(); return false; });
 	$('#menuSetupConfig').click(function() {setupShow(); return false; });
 }
@@ -155,6 +96,7 @@ function loadSeeConfig(){
 var lastclicked = "setup";
 
 function hideAll(){
+	$('#legendCompare').addClass('hide');
 	$("#setupInfos").hide("blind");
 	$("#compareDemos").hide("blind");
 	$("#loadSeeConfig").hide("blind");
@@ -176,16 +118,90 @@ function sendConfig(){
 	nameConfigFile = $('#configName').val();
 }
 
-function loadConfig(){
+/* =============== COMPARE A LOADED CONFIGURATION WITH ONE OF THE DEMOS ================= */
+
+// Manage the small window to choose the demo and launch
+function showCompareUI(){
 	if (lastclicked == "config"){
 		$("#compareDemos").toggle("blind");
 	}else{
+		// We come from another menu item
 		hideAll();
 		lastclicked="config";
-		loadConfig();
+		$("#compareDemos").toggle("blind");
 	}
+	
+	// Reset all colors and legend when the menu is reselected
 	eraseColorRadio();
+	$('#legendCompare').addClass('hide');
 }
+
+
+
+
+// Prep the data structure to compare the 2 files
+function compareConfig(){
+	// Hide the menu and show the legend
+	$("#compareDemos").toggle("blind");
+	$('#legendCompare').removeClass('hide');
+	
+	// Prepare 2 dictionnaries, one for the chosen demo
+	// One for the user's loaded configuration
+	var dictDemo = prepDemoDict();
+	var dictUser = prepConfigDict();
+	compareDict(dictDemo, dictUser);
+}
+
+/* Remove the values present in the 2 dict (similar to a set)
+* The values left in dictDemo are categorized as 'missing'
+* The values left in dictUser are categorized as 'extra' or 'incorrect' */
+function compareDict(dictDemo, dictUser){
+	for (var keyDemo in dictDemo){
+		var valueDemo = dictDemo[keyDemo];
+		
+		// veh is an exception as it caused problems 
+		// and this arg is present everywhere
+		if (keyDemo == "veh"){
+			continue;
+		}
+		
+		for (var keyUser in dictUser){
+			var valueUser = dictUser[keyUser];
+			// We compare both the key and the value
+			if (keyUser == keyDemo && valueUser == valueDemo){
+				delete dictDemo[keyDemo];
+				delete dictUser[keyUser];
+			}
+		}
+	}
+	
+	// Calls the UI change on all the values not matched
+	for (var keyDemo in dictDemo){
+		changeColorRadio(keyDemo,dictDemo[keyDemo],'missing');
+	}
+	
+	for (var keyUser in dictUser){
+		changeColorRadio(keyUser,dictUser[keyUser],'incorrect');
+	}
+}
+
+/* For a given name, find the label associated with the radio button
+* Change it's color by associating the right class
+* typeError is either 'incorrect' (extra) or 'missing' */
+function changeColorRadio(radioName, value, typeError){
+	$('label[name="title_'+radioName+'"]').each(function() {
+			jQuery(this).addClass('titleNotice');
+			jQuery(this).removeClass('normal');
+	});
+	$('label[for="'+radioName+'"]').each(function() {
+		if (jQuery(this).text() == value){
+			jQuery(this).addClass(typeError);
+			jQuery(this).removeClass('normal');
+		}
+	});
+}
+
+/* =============== (END) ==== COMPARE A LOADED CONFIGURATION WITH ONE OF THE DEMOS ================= */
 
 $(document).ready(function(){
 				$.ajax({
@@ -274,13 +290,13 @@ $(document).ready(function(){
 		<div class = "sameline">
 				<div class ="btn floatL">
 					<button id="btn_demos" onclick="compareConfig()">Compare config</button>
+				</div>-->
+				<div id="legendCompare" class="hide">
+					<p class="titleNotice under">Flag is different</p>
+					<p class="missing under">In demo, not in config</p>
+					<p class="incorrect under">In config, not in demo</p>
 				</div>
-				<div class ="sameline">
-					<p id="legend_titlenotice" class="titleNotice under hide">Flag is different</p>
-					<p id="legend_missing" class="missing under hide">In demo, not in config</p>
-					<p id="legend_incorrect" class="incorrect under hide">In config, not in demo</p>
-				</div>
-
+<!--
 		</div>-->
 		
 	</div>
