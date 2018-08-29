@@ -38,7 +38,7 @@ function loadFileAsText() {
 			dataUser = fileLoadedEvent.target.result;
 			
 			// Only then do we proceed to the parsing
-			rosToJava();
+			rosToUI();
 		};
 		fileReader.readAsText(fileToLoad, "UTF-8");
 	}else{

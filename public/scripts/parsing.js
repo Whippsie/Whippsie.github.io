@@ -26,7 +26,7 @@ function parsetoROS(filename){
 * Then, parse the dict to update the UI 
 * Note : The reason why I don't do data -> UI directly is because initially,
 * a java file was created with classes and parameters, thus the extra step */
-function rosToJava(){
+function rosToUI(){
 	hideAll();
 	var dictUser = rosToDict(dataUser);
 	dictToUI(dictUser);
