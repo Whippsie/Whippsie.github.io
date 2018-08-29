@@ -1,46 +1,38 @@
+// Organisation : GEODES.UMONTREAL
+// Author : Maude Sabourin
+// Project : CRSNG - Duckietown configurations
+
+// Basic Express Header
 const express = require('express')
 var child = require('./mymodule.js');
 const app = express()
 
+// Tags the Public folder as containing the resources
 app.use(express.static(__dirname + '/public'))
 
-/*app.get('/*', (req, res) => {
-  res.redirect('index.html');
-})*/
+// Allows POST arguments fetching 
+app.use(express.urlencoded({extended: true})); 
 
+// !!! Do not change the order of these routings or the HTML response in the XMLHTTP will not work !!! 
+
+// Routes localhost:3000/index to open the index.html
 app.get('/index', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
 
-app.use(express.urlencoded({extended: true})); 
-
+/* When /call.. is requested, fetch the POST arguments
+* Then, calls a module used to execute a Java jar
+* Returns the data obtained as a response */
 app.post('/call-java-app', function (req, res){
 	var location = req.body.location
-	console.log(location);
 	var nameConfigFile = req.body.nameConfigFile
-	console.log(nameConfigFile);
 	var data = child.executeJava(location,nameConfigFile);
 	res.send(data);
 });
 
+// Routes localhost:3000 to open the index.html
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
-/*
-http.createServer(function (req, res) {
-  fs.readFile('index.html', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
-  });
-
-}).listen(8080);*/
-
-
-/*
-  fs.writeFile('mynewfile3.txt', 'Hello content!', function (err) {
-  if (err) throw err;
-  console.log('Saved!');
-  */
+app.listen(3000, () => console.log('Web server listening; Head over to localhost:3000'))

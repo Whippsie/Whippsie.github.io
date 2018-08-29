@@ -1,6 +1,10 @@
+// Organisation : GEODES.UMONTREAL
+// Author : Maude Sabourin
+// Project : CRSNG - Duckietown configurations
+
+//parsedValues is a dictionary containing array
 function addRadioBool(parsedValues){
 	var htmlAdd = "";
-	//parsedValues is a dictionary containing array
 	//key = category, values = flagnames
 	for (var category in parsedValues){
 		var flags = parsedValues[category];
@@ -29,11 +33,7 @@ function addRadioBool(parsedValues){
 	$("#title").after(htmlAdd);
 	$("#confirm").before("<br>");
 }
-var dict = {"Camera":"/camera/","Localization":"localization","Navigation":"navigation", "Avoidance":"avoidance",
-"LaneFollowing":"lane_following", "Apriltags":"apriltags","Control":["joystick","intersectiontype", "coordination", "visualization"], 
-"Specific":["wheels", "anti_instagram", "map_name", "verbose"],"Odometry":["odometry_learning","/odometry_learning/kinematics",
-"/odometry_learning/visual_odometry","odometry","/odometry/forward_kinematics"],"LED":["LED","/LED/pattern_switch",
-"/LED/detector","/LED/joystick","/LED/interpreter"]}
+
 
 
 function updateUI(javaDict){

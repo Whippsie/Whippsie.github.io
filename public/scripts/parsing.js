@@ -1,3 +1,6 @@
+// Organisation : GEODES.UMONTREAL
+// Author : Maude Sabourin
+// Project : CRSNG - Duckietown configurations
 
 function parsetoROS(filename){
 	var ros = '<launch> \n \t <arg name="veh" default="$(env VEHICLE_NAME)"/> \n ';

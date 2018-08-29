@@ -1,3 +1,7 @@
+// Organisation : GEODES.UMONTREAL
+// Author : Maude Sabourin
+// Project : CRSNG - Duckietown configurations
+
 /* =============== SETUP VARIABLES ================= */
 
 // Manage the small window to choose the setup variables

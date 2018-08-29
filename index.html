@@ -1,3 +1,7 @@
+<!-- Organisation : GEODES.UMONTREAL
+	 Author : Maude Sabourin
+	 Project : CRSNG - Duckietown configurations -->
+	 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,12 +11,8 @@
 	<script src="./scripts/objects.js"></script>
 	<script src="./scripts/parsing.js"></script>
 	<script src="./scripts/ui.js"></script>
+	<script src="./scripts/globalvar.js"></script>
 	<script>
-		// Default values, can be changed
-		var pathJar="E:\\Ducky_Genie\\canardrunnable.jar";
-		var nameConfigFile="myConfig";
-		var lastclicked = "setup"; // lastclicked \in {"setup","load","config"}
-
 		// Fetch the flags in the .txt (taken from master.launch initial arg config)
 		// Parse the data, create dynamically the UI and add the click events
 		$(document).ready(function(){
@@ -55,11 +55,11 @@
 		/* Add the click events dynamically because the menu is made of hyperlink
 		 * Buttons were initially made, but this decision was made for UX purposes */
 		function loadMenuEvents(){
-			$('#menuLoadSeeConfig').click(function() {showLoadSeeUI(); return false; });
+			$('#menuSetupConfig').click(function() {setupShow(); return false; });
 			$('#menuGenerateConfig').click(function() {parsetoROS(nameConfigFile); return false; });
+			$('#menuLoadSeeConfig').click(function() {showLoadSeeUI(); return false; });
 			$('#menuCompareConfig').click(function() {showCompareUI(); return false; });
 			$('#menuCallJavaApp').click(function() {callJavaApp(); return false; });
-			$('#menuSetupConfig').click(function() {setupShow(); return false; });
 		}
 
 		/* +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+- */
