@@ -36,11 +36,13 @@ function rosToJava(){
 function dictToUI(args){
 	uncheckAllRadio();
 	for (var key in args){
-		// If 
+		// If no category is associated, puts 'Undefined'
 		var currCategory = findCategory(key);
+		// Checks if arg is associated with a value
 		if (args.hasOwnProperty(key)) {
 			var flag_name = key;
 			var value = args[key];
+			// Triggers the radio button clicks corresponding
 			updateUISingle(currCategory, flag_name, value);
 		}
 	}

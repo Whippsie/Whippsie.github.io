@@ -97,7 +97,9 @@ function eraseColorAllRadio(){
 	});
 }
 
-// ??
+/* Finds the radio button associated with the name and category
+* Checks the radio fitting the value (
+* i.e. if value = false, checks the radio next to the false label */
 function updateUISingle(currCategory, flag_name, value){
 	$('input:radio.'+currCategory).each(function() {
 		if (jQuery(this).attr('name') == flag_name && jQuery(this).attr('value') == value){
