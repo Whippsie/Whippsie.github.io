@@ -56,3 +56,17 @@ function loadFile(filePath) {
   }
   return result;
 }
+
+
+function readFile (fullpath){
+	var result="";
+	$.ajax({
+		url: fullpath,
+		async: false,
+		dataType: "text",
+		success: function (data) {
+			result = data;
+		}
+	});
+	return result;
+}

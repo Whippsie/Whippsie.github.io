@@ -14,30 +14,22 @@ function parsetoROS(filename){
 }
 
 
+function rosToJava(){
+	hideAll();
+	var dictUser = rosToDict(dataUser);
+	dictToJava(dictUser);
+}
+
 function dictToJava(args){
-	//var javatext="";
-	resetAll();
+	uncheckAllRadio();
 	for (var key in args){
 		var currCategory = findCategory(key);
-		//if (javatext.indexOf("public class " + currCategory) == -1){
-			//javatext += "public class " + currCategory + " { \n";
-		//}
 		if (args.hasOwnProperty(key)) {
-			//var flag_name = key.slice(getParamPos + dict[launchfile].length);
 			var flag_name = key;
-			//Remove this for now, we want to keep the /
-			//if (flag_name.charAt(0) == "/"){
-				//flag_name = flag_name.substr(1);
-			//}
 			var value = args[key];
-			//javatext += " \t private boolean " + flag_name + " = " + value + " ;\n";
 			updateUISingle(currCategory, flag_name, value);
 		}
 	}
-	//javatext += "}";
-	//writeTextFile(launchfile+"FromROS.java", javatext, 'java');
-	//console.log(javatext);
-	//return javatext;
 }
 
 function findCategory(arg){
