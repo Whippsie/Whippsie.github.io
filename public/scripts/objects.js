@@ -35,7 +35,7 @@ function addRadioBool(parsedValues){
 }
 
 
-
+//TODO CHANGE LAUNCHFILE, REMOVED IT
 function updateUI(javaDict){
 	$('input:radio.'+launchfile).each(function() {
 		jQuery(this).prop("checked", false);
