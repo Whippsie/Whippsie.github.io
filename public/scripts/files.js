@@ -33,12 +33,17 @@ var dataUser = "";
 function loadFileAsText()
 {
 	var fileToLoad = document.getElementById("fileToLoad").files[0];
-	var fileReader = new FileReader();
-	fileReader.onload = function(fileLoadedEvent) 
-	{
-		dataUser = fileLoadedEvent.target.result;
-	};
-	fileReader.readAsText(fileToLoad, "UTF-8");
+	if (fileToLoad!=null){
+		var fileReader = new FileReader();
+		fileReader.onload = function(fileLoadedEvent) 
+		{
+			dataUser = fileLoadedEvent.target.result;
+			rosToJava();
+		};
+		fileReader.readAsText(fileToLoad, "UTF-8");
+	}else{
+		alert('Please select a config .launch file first');
+	}
 }
 
 function loadFile(filePath) {

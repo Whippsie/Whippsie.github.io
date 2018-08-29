@@ -8,7 +8,7 @@
 <script src="./scripts/parsing.js"></script>
 <script>
 //TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
-var pathJar="E:\Ducky_Genie\canardrunnable.jar";
+var pathJar="E:\\Ducky_Genie\\canardrunnable.jar";
 var nameConfigFile="myConfig";
 
 function getAllIndexes(arr, val) {
@@ -18,14 +18,8 @@ function getAllIndexes(arr, val) {
             indexes.push(i);
     return indexes;
 }
-function rosToJava(){
-	if (dataUser==""){
-		alert('Please load a launch file first');
-	}else{
-		var dictUser = rosToDict(dataUser);
-		dictToJava(dictUser);
-	}
-}
+
+
 function readFile (fullpath){
 	var result="";
 	$.ajax({
@@ -109,10 +103,6 @@ function prepConfigDict(){
 	var dictUser = rosToDict(dataUser);
 	return dictUser;
 }
-function fetchConfigFile(){
-	loadFileAsText();
-	alert('Launch file loaded');
-}
 
 function callJavaApp(){
 	var url = '/call-java-app';
@@ -127,27 +117,52 @@ function callJavaApp(){
 	}
 	xmlHttp.open("POST", url, true); // false for synchronous request
 	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xmlHttp.send("location="+pathJar+"&nameConfigFile="+nameConfigFile);
+	xmlHttp.send('location="'+pathJar+'"&nameConfigFile='+nameConfigFile);
 
 }
 function loadMenuEvents(){
-	$('#loadSeeConfig').click(function() {rosToJava(); return false; });
-	$('#generateConfig').click(function() {parsetoROS(nameConfigFile); return false; });
-	$('#compareConfig').click(function() {loadConfig(); return false; });
-	$('#callJavaApp').click(function() {callJavaApp(); return false; });
-	$('#setupConfig').click(function() {setupShow(); return false; });
+	$('#menuLoadSeeConfig').click(function() {loadSeeConfig(); return false; });
+	$('#menuGenerateConfig').click(function() {parsetoROS(nameConfigFile); return false; });
+	$('#menuCompareConfig').click(function() {loadConfig(); return false; });
+	$('#menuCallJavaApp').click(function() {callJavaApp(); return false; });
+	$('#menuSetupConfig').click(function() {setupShow(); return false; });
+}
+
+function rosToJava(){
+	hideAll();
+	var dictUser = rosToDict(dataUser);
+	dictToJava(dictUser);
+}
+
+function triggerLoad(){
+	loadFileAsText();
+	//Call the next step if file is loaded successfully
+	//if (dataUser != ""){
+
+	//}
+}
+
+function loadSeeConfig(){
+	if (lastclicked == "load"){
+		$("#loadSeeConfig").toggle("blind");
+	}else{
+		hideAll();
+		lastclicked="load";
+		loadSeeConfig();
+	}
 }
 
 var lastclicked = "setup";
 
 function hideAll(){
-	$("#setupInfos").hide();
-	$("#compareDemos").hide();
+	$("#setupInfos").hide("blind");
+	$("#compareDemos").hide("blind");
+	$("#loadSeeConfig").hide("blind");
 }
 
 function setupShow(){
 	if (lastclicked == "setup"){
-		$("#setupInfos").toggle();
+		$("#setupInfos").toggle("blind");
 	}else{
 		hideAll();
 		lastclicked="setup";
@@ -163,7 +178,7 @@ function sendConfig(){
 
 function loadConfig(){
 	if (lastclicked == "config"){
-		$("#compareDemos").toggle();
+		$("#compareDemos").toggle("blind");
 	}else{
 		hideAll();
 		lastclicked="config";
@@ -189,20 +204,26 @@ $(document).ready(function(){
 </head>
 <body>
 <ul>
-  <li class="shine""><a id="setupConfig" href="">Setup environment</a></li>
-  <li><a id="generateConfig" href="">Generate a configuration</a></li>
-  <li><a id="loadSeeConfig" href="">Load and see a configuration</a></li>
-  <li><a id="compareConfig" href="">Compare a configuration with demos</a></li>
-  <li><a id="callJavaApp" href="">Generate a GMF</a></li>
+  <li class="shine"><a id="menuSetupConfig" href="">Setup environment</a></li>
+  <li><a id="menuGenerateConfig" href="">Generate a configuration</a></li>
+  <li><a id="menuLoadSeeConfig" href="">Load and see a configuration</a></li>
+  <li><a id="menuCompareConfig" href="">Compare a configuration with demos</a></li>
+  <li><a id="menuCallJavaApp" href="">Generate a GMF</a></li>
   <li style="float:right"><a class="active" href="about.html">About</a></li>
 </ul>
+<div id="loadSeeConfig" class="hide">
+	<form class="leftSpace topSpace">
+	Select a .launch config file
+	</form>
+	<input type="file" id="fileToLoad">
+	<button id="btnLoadConfig" class="topMarg" onclick="triggerLoad()">Confirm</button>
+</div>
 <div id="setupInfos" class="hide">
 <p> Step 1 : </p>
 	<form class="leftSpace">
 	<!--<input type="button" id="jarFileFakeBtn" onclick="document.getElementById('jarFile').click();" value="Give jar Location" />-->
 	Download the <a href="#todo">jar</a>
 	</form>
-	<!--<input type="file" id="jarFile" />-->
 <p> Step 2 : </p>
 	<form class="leftSpace">
 	  Write the absolute path to the jar (This will be your working folder) : <br>
