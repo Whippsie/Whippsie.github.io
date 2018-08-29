@@ -8,8 +8,8 @@
 <script src="./scripts/parsing.js"></script>
 <script>
 //TODO: Modify this into https://www.w3schools.com/tags/tag_fieldset.asp for better graphics
-var pathJar="";
-var nameConfigFile="";
+var pathJar="E:\Ducky_Genie\canardrunnable.jar";
+var nameConfigFile="myConfig";
 
 function getAllIndexes(arr, val) {
     var indexes = [], i;
@@ -40,6 +40,7 @@ function readFile (fullpath){
 }
 
 function compareConfig(){
+	$("#compareDemos").toggle();
 	var dictDemo = prepDemoDict();
 	var dictUser = prepConfigDict();
 	compareDict(dictDemo, dictUser);
@@ -77,15 +78,23 @@ function compareDict(dictDemo, dictUser){
 function changeColorRadio(radioName, value, typeError){
 	$('label[name="title_'+radioName+'"]').each(function() {
 			jQuery(this).addClass('titleNotice');
+			jQuery(this).removeClass('normal');
 	});
 	$('label[for="'+radioName+'"]').each(function() {
-		var potato = "hi";
 		if (jQuery(this).text() == value){
-			var potato = "ho";
 			jQuery(this).addClass(typeError);
+			jQuery(this).removeClass('normal');
 		}
 	});
+}
 
+function eraseColorRadio(){
+	$('label').each(function() {
+		jQuery(this).removeClass('incorrect');
+		jQuery(this).removeClass('missing');
+		jQuery(this).removeClass('titleNotice');
+		jQuery(this).addClass('normal');
+	});
 }
 function prepDemoDict(){
 	var selected = $('#demo_files').val();
@@ -123,16 +132,44 @@ function callJavaApp(){
 }
 function loadMenuEvents(){
 	$('#loadSeeConfig').click(function() {rosToJava(); return false; });
-	$('#generateConfig').click(function() {parsetoROS('Test'); return false; });
-	$('#compareConfig').click(function() {compareConfig(); return false; });
+	$('#generateConfig').click(function() {parsetoROS(nameConfigFile); return false; });
+	$('#compareConfig').click(function() {loadConfig(); return false; });
 	$('#callJavaApp').click(function() {callJavaApp(); return false; });
-	$('#setupConfig').click(function() {$("#setupInfos").toggle(); return false; });
+	$('#setupConfig').click(function() {setupShow(); return false; });
+}
+
+var lastclicked = "setup";
+
+function hideAll(){
+	$("#setupInfos").hide();
+	$("#compareDemos").hide();
+}
+
+function setupShow(){
+	if (lastclicked == "setup"){
+		$("#setupInfos").toggle();
+	}else{
+		hideAll();
+		lastclicked="setup";
+		setupShow();
+	}
 }
 
 function sendConfig(){
-pathJar = $('#jarFile').val();
-nameConfigFile = $('#configName').val();
-$("#setupInfos").toggle();
+	hideAll();
+	pathJar = $('#jarFile').val();
+	nameConfigFile = $('#configName').val();
+}
+
+function loadConfig(){
+	if (lastclicked == "config"){
+		$("#compareDemos").toggle();
+	}else{
+		hideAll();
+		lastclicked="config";
+		loadConfig();
+	}
+	eraseColorRadio();
 }
 
 $(document).ready(function(){
@@ -152,21 +189,23 @@ $(document).ready(function(){
 </head>
 <body>
 <ul>
-  <li class="shine" href=""><a id="setupConfig" >Setup environment</a></li>
+  <li class="shine""><a id="setupConfig" href="">Setup environment</a></li>
   <li><a id="generateConfig" href="">Generate a configuration</a></li>
   <li><a id="loadSeeConfig" href="">Load and see a configuration</a></li>
   <li><a id="compareConfig" href="">Compare a configuration with demos</a></li>
   <li><a id="callJavaApp" href="">Generate a GMF</a></li>
   <li style="float:right"><a class="active" href="about.html">About</a></li>
 </ul>
-<div id="setupInfos">
+<div id="setupInfos" class="hide">
 <p> Step 1 : </p>
+	<form class="leftSpace">
 	<!--<input type="button" id="jarFileFakeBtn" onclick="document.getElementById('jarFile').click();" value="Give jar Location" />-->
 	Download the <a href="#todo">jar</a>
+	</form>
 	<!--<input type="file" id="jarFile" />-->
 <p> Step 2 : </p>
 	<form class="leftSpace">
-	  Write the absolute path to the jar : <br>
+	  Write the absolute path to the jar (This will be your working folder) : <br>
 	  <input type="text" id="jarFile" size="35" value="E:\Ducky_Genie\canardrunnable.jar"><br>
 	</form>
 <p> Step 3 : </p>
@@ -177,6 +216,22 @@ $(document).ready(function(){
 	
 	<button id="sendConfig" class="topMarg" onclick="sendConfig()">Confirm</button>
 </div>
+<div id="compareDemos" class="hide">
+	<form class="leftSpace topSpace">
+	Choose your desired demo file
+
+	<select id="demo_files" class="leftSpace">
+		<option value="indefinite_navigation">indefinite_navigation</option>
+		<option value="intersection">intersection</option>
+		<option value="joystick">joystick</option>
+		<option value="lane_following">lane_following</option>
+		<option value="localization">localization</option>
+		<option value="localization_frontend">localization_frontend</option>
+		<option value="localization_navigation">localization_navigation</option>
+	</select>
+	</form>
+<button id="sendConfigCompare" class="topMarg" onclick="compareConfig()">Confirm</button>
+</div>
 <h1 id="title"> Prototype - Configuration Duckietown </h1>
 <div id="space">
 </div>
@@ -186,13 +241,13 @@ $(document).ready(function(){
 	<!--
 		<div class="floatL">
 			<div class="btn">
-				<button id="btn_ros2java" onclick="rosToJava()">Launch -> Config</button>
+				<button id="btn_ros2java" onclick="rosToJava()">Launch -> Config</button>-->
 				<a download="" id="downloadlinkjava" style="display: none">Download Java</a>
-			</div>
+			<!--</div>
 			<div class="btn">
-				<button id="btn_java2ros" onclick="parsetoROS('Test')"> Config -> Launch</button>
+				<button id="btn_java2ros" onclick="parsetoROS('Test')"> Config -> Launch</button>-->
 				<a download="" id="downloadlinkros" style="display: none">Download ROS</a>
-			</div>
+			<!--</div>
 		</div> -->
 		<!--
 		<div class = "sameline">

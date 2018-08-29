@@ -54,6 +54,9 @@ li:last-child {
 .leftSpace{
 	padding-left:20px;
 }
+.topSpace{
+	margin-top:20px;
+}
 p {
 	font-weight: bold; 
 }
@@ -61,9 +64,11 @@ p {
     color: red;
 }
 .missing{
-	color: yellow;
+	color: green;
 }
-
+.normal{
+	color: black;
+}
 .titleNotice{
 	color: blue;
 }
@@ -74,7 +79,7 @@ p {
 	border: 3px solid;
 	border-color:orange;
 }
-#setupInfos{
+.hide{
 	display:none;
 }
 #split3{
