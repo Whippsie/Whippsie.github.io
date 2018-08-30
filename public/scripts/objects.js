@@ -4,7 +4,6 @@
 
 // TODO: COMMENT THIS FILE
 
-
 //parsedValues is a dictionary containing array
 function addRadioBool(parsedValues){
 	var htmlAdd = "";

@@ -36,7 +36,7 @@ function rosToUI(){
 function dictToUI(args){
 	uncheckAllRadio();
 	for (var key in args){
-		// If no category is associated, puts 'Undefined'
+		// If no category is associated, gets 'Undefined'
 		var currCategory = findCategory(key);
 		// Checks if arg is associated with a value
 		if (args.hasOwnProperty(key)) {

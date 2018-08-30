@@ -12,6 +12,7 @@
 	<script src="./scripts/parsing.js"></script>
 	<script src="./scripts/ui.js"></script>
 	<script src="./scripts/globalvar.js"></script>
+	<script src="./scripts/objects.js"></script>
 	<script>
 		// Fetch the flags in the .txt (taken from master.launch initial arg config)
 		// Parse the data, create dynamically the UI and add the click events
@@ -201,6 +202,7 @@
 		Choose your desired demo file
 
 		<select id="demo_files" class="leftSpace">
+
 			<option value="indefinite_navigation">indefinite_navigation</option>
 			<option value="intersection">intersection</option>
 			<option value="joystick">joystick</option>
@@ -208,6 +210,15 @@
 			<option value="localization">localization</option>
 			<option value="localization_frontend">localization_frontend</option>
 			<option value="localization_navigation">localization_navigation</option>
+			<option value="mission_planning">mission_planning</option>
+			<option value="obstacle_avoid">obstacle_avoid</option>
+			<option value="obstacle_avoid_nowheels">obstacle_avoid_nowheels</option>
+			<option value="obstacle_vehicle_avoid">obstacle_vehicle_avoid</option>
+			<option value="parallel_autonomy">parallel_autonomy</option>
+			<option value="stop_sign_coordination">stop_sign_coordination</option>			
+			<option value="traffic_light_coordination">traffic_light_coordination</option>	
+			<option value="vehicle_avoid">vehicle_avoid</option>	
+			<option value="vehicle_avoid_nowheels">vehicle_avoid_nowheels</option>				
 		</select>
 		</form>
 	<button id="sendConfigCompare" class="topMarg" onclick="compareConfig()">Confirm</button>

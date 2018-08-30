@@ -4,7 +4,7 @@
 
 // Basic Express Header
 const express = require('express')
-var child = require('./mymodule.js');
+var child = require('./executeJava.js');
 const app = express()
 
 // Tags the Public folder as containing the resources
